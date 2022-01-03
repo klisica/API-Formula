@@ -1,0 +1,21 @@
+{
+    "name": "klisica/api-formula",
+    "description": "Laravel API architecture builder based on artisan commands.",
+    "type": "library",
+    "require": {
+        "illuminate/support": "8.x-dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "KLisica\\ApiFormula\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Krševan Lisica",
+            "email": "lisica.krsevan.lisica@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
