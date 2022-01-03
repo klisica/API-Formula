@@ -3,7 +3,7 @@
     "description": "Laravel API architecture builder based on artisan commands.",
     "type": "library",
     "require": {
-        "illuminate/support": "8.x-dev"
+        "illuminate/support": "^7.0|^8.0"
     },
     "license": "MIT",
     "autoload": {
