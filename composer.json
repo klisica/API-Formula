@@ -11,6 +11,13 @@
             "KLisica\\ApiFormula\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KLisica\\ApiFormula\\Providers\\ApiFormulaServiceProvider"
+            ]
+        }
+    },
     "authors": [
         {
             "name": "Krševan Lisica",
