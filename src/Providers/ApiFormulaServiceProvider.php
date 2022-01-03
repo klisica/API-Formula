@@ -8,7 +8,7 @@ class ApiFormulaServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        dd('Package works!');
+        info('Package works!');
     }
 
     public function register()
