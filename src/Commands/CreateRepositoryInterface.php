@@ -6,17 +6,17 @@ use Illuminate\Console\Command;
 use Illuminate\Console\GeneratorCommand;
 use KLisica\ApiFormula\Helpers\BuildReplacements;
 
-class CreateRepository extends GeneratorCommand
+class CreateRepositoryInterface extends GeneratorCommand
 {
     public      $_FILE_NAME     = '';
     public      $_MODEL_NAME    = '';
-    protected   $signature      = 'api-make:repository {name} {--model=}';
-    protected   $description    = 'Create and publish Repository instance.';
-    protected   $type           = 'Repository';
+    protected   $signature      = 'api-make:repository-interface {name} {--model=}';
+    protected   $description    = 'Create and publish Repository Interface instance.';
+    protected   $type           = 'RepositoryInterface';
 
     protected function getStub()
     {
-        return __DIR__ . '/Stubs/Repository.stub';
+        return __DIR__ . '/Stubs/RepositoryInterface.stub';
     }
 
     /**
@@ -36,7 +36,7 @@ class CreateRepository extends GeneratorCommand
      */
     public function handle()
     {
-        $this->_FILE_NAME = $this->getNameInput();
+        $this->_FILE_NAME = "Interfaces\\" . $this->getNameInput();
         $this->_MODEL_NAME = $this->option('model') ?? null;
 
         // Check whether the model parameter is provided.
@@ -61,13 +61,6 @@ class CreateRepository extends GeneratorCommand
         $name = $this->qualifyClass($this->_FILE_NAME);
         $path = $this->getPath($name);
 
-        // Create the repository interface instance.
-        $this->call('api-make:repository-interface', [
-            'name' => $this->_FILE_NAME . "Interface",
-            '--model' => $this->_MODEL_NAME
-        ]);
-
-        // Create the repository instance.
         $this->makeDirectory($path);
         $this->files->put(
             $path,

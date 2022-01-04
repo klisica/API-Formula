@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 // Commands.
 use KLisica\ApiFormula\Commands\CreateRepository;
+use KLisica\ApiFormula\Commands\CreateRepositoryInterface;
 
 class ApiFormulaServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,8 @@ class ApiFormulaServiceProvider extends ServiceProvider
     {
         // Registering commands.
         $this->commands([
-            CreateRepository::class
+            CreateRepositoryInterface::class,
+            CreateRepository::class,
         ]);
     }
 }
