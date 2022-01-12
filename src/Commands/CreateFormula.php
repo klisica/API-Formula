@@ -38,14 +38,20 @@ class CreateFormula extends Command
 
         if ($modelChoices[0] == $modelChoice) {
             // Create new model.
-
+            $modelName = $this->ask('Write new model name:');
+            $this->call('api-make:model', ['name' => $modelName]);
         } else {
             // Use existing model.
             // #TODO - Handle this.
             $modelName = $this->ask('Creating');
         }
 
-        $this->info("________________________________________");
+        // Create repository and related interface.
+        $this->call('api-make:repository', [
+            'name' => $modelName . 'Repository',
+            '--model' => $modelName
+        ]);
+
         return 0;
     }
 }

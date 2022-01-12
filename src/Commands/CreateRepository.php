@@ -3,27 +3,19 @@
 namespace KLisica\ApiFormula\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\GeneratorCommand;
-use KLisica\ApiFormula\Helpers\BuildReplacements;
+use KLisica\ApiFormula\Extended\GeneratorCommand;
 
 class CreateRepository extends GeneratorCommand
 {
-    public      $_FILE_NAME     = '';
-    public      $_MODEL_NAME    = '';
-    protected   $signature      = 'api-make:repository {name} {--model=}';
-    protected   $description    = 'Create and publish Repository instance.';
-    protected   $type           = 'Repository';
+    protected $signature    = 'api-make:repository {name} {--model=}';
+    protected $description  = 'Create and publish Repository instance.';
+    protected $type         = 'Repository';
 
     protected function getStub()
     {
         return __DIR__ . '/Stubs/Repository.stub';
     }
 
-    /**
-     * The root location where file should be written to.
-     *
-     * @return string
-     */
     protected function getDefaultNamespace($rootNamespace)
     {
         return "$rootNamespace\\Repositories";
@@ -45,21 +37,7 @@ class CreateRepository extends GeneratorCommand
             return false;
         }
 
-        // Check whether the name is allready reserved.
-        if ($this->isReservedName($this->_FILE_NAME)) {
-            $this->error('The name ' . $this->_FILE_NAME . ' is already reserved!');
-            return false;
-        }
-
-        // Check whether the class name already exists.
-        if ($this->alreadyExists($this->_FILE_NAME)) {
-            $this->error('The class name ' . $this->_FILE_NAME . ' already exists!');
-            return false;
-        }
-
-        // Parse and format the class name and path parameters.
-        $name = $this->qualifyClass($this->_FILE_NAME);
-        $path = $this->getPath($name);
+        $sts = $this->_startFileBuilder();
 
         // Create the repository interface instance.
         $this->call('api-make:repository-interface', [
@@ -67,30 +45,6 @@ class CreateRepository extends GeneratorCommand
             '--model' => $this->_MODEL_NAME
         ]);
 
-        // Create the repository instance.
-        $this->makeDirectory($path);
-        $this->files->put(
-            $path,
-            $this->sortImports($this->buildClass($name))
-        );
-
-        $this->info($this->_FILE_NAME . ' created successfully!');
-        return Command::SUCCESS;
-    }
-
-    /**
-     * Build replaceable class names string.
-     *
-     * @return string
-     */
-    public function buildClass($name): string
-    {
-        $replace = (new BuildReplacements)->repository($this->_MODEL_NAME);
-
-        return str_replace(
-            array_keys($replace),
-            array_values($replace),
-            parent::buildClass($name)
-        );
+        return $sts ? Command::SUCCESS : Command::FAILURE;
     }
 }
