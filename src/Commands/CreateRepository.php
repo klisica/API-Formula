@@ -4,6 +4,7 @@ namespace KLisica\ApiFormula\Commands;
 
 use Illuminate\Console\Command;
 use KLisica\ApiFormula\Extended\GeneratorCommand;
+use KLisica\ApiFormula\Helpers\FileManager;
 
 class CreateRepository extends GeneratorCommand
 {
@@ -44,6 +45,12 @@ class CreateRepository extends GeneratorCommand
             'name' => $this->_FILE_NAME . "Interface",
             '--model' => $this->_MODEL_NAME
         ]);
+
+        // Import repository and new interface.
+        (new FileManager)->importRepositoryFiles($this->_FILE_NAME, '// @API_FORMULA_USE_AUTOIMPORT');
+        (new FileManager)->importRepositoryFiles($this->_FILE_NAME, '// @API_FORMULA_BIND_AUTOIMPORT');
+
+        $this->info('Repository and interface imported!');
 
         return $sts ? Command::SUCCESS : Command::FAILURE;
     }
