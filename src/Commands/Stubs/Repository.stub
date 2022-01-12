@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class {{ class }}
+{
+    /**
+     * Get list of records - paginated.
+     *
+     * @return  LengthAwarePaginator
+     */
+    public function all(Request $request): LengthAwarePaginator
+    {
+        $perPage = $request->per_page ?? 20;
+        return {{ model }}::paginate((int) $perPage);
+    }
+}
