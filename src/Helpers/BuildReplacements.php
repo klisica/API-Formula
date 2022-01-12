@@ -14,6 +14,6 @@ class BuildReplacements
         return [
             '{{ namespacedModel }}' => "App\\Models\\$model_name",
             '{{ model }}' => $model_name
-    ];
+        ];
     }
 }

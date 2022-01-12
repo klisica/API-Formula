@@ -2,10 +2,13 @@
 
 #### Laravel API architecture builder based on artisan commands.
 
-- Resources.
-
 ## Instalation
 
 ``` shell
 composer require klisica/api-formula
 ```
+
+## API Components
+
+#### 1. Repositories
+
