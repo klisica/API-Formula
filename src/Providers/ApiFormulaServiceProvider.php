@@ -5,6 +5,7 @@ namespace KLisica\ApiFormula\Providers;
 use Illuminate\Support\ServiceProvider;
 
 // Commands.
+use KLisica\ApiFormula\Commands\SetupFormula;
 use KLisica\ApiFormula\Commands\CreateFormula;
 use KLisica\ApiFormula\Commands\CreateModel;
 use KLisica\ApiFormula\Commands\CreateRepository;
@@ -21,6 +22,7 @@ class ApiFormulaServiceProvider extends ServiceProvider
     {
         // Registering commands.
         $this->commands([
+            SetupFormula::class,
             CreateFormula::class,
 
             // Sub-commands.

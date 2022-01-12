@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+// @API_FORMULA_USE_AUTOIMPORT
+
+class RepositoryServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        // @API_FORMULA_BIND_AUTOIMPORT
+    }
+}

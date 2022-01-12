@@ -42,8 +42,7 @@ class CreateFormula extends Command
             $this->call('api-make:model', ['name' => $modelName]);
         } else {
             // Use existing model.
-            // #TODO - Handle this.
-            $modelName = $this->ask('Creating');
+            $modelName = $this->ask('Write existing model name:');
         }
 
         // Create repository and related interface.
