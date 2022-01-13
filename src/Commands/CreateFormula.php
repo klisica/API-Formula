@@ -38,7 +38,7 @@ class CreateFormula extends Command
         if ($modelChoices[0] == $modelChoice) {
             // Create new model.
             $modelName = $this->ask('Write new model name:');
-            $this->call('api-make:model', ['name' => $modelName]);
+            $this->call('api-make:model', ['name' => $modelName, '--migration' => true]);
         } else {
             // Use existing model.
             $modelName = $this->ask('Write existing model name:');
