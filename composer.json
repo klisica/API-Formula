@@ -4,7 +4,8 @@
     "type": "library",
     "require": {
         "illuminate/support": "^8.0",
-        "goldspecdigital/laravel-eloquent-uuid": "^8.0"
+        "goldspecdigital/laravel-eloquent-uuid": "^8.0",
+        "laracasts/generators": "^2.0"
     },
     "license": "MIT",
     "autoload": {

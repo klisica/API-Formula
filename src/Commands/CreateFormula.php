@@ -6,9 +6,8 @@ use Illuminate\Console\Command;
 
 class CreateFormula extends Command
 {
-    protected   $signature      = 'api-make:formula';
-    protected   $description    = 'API Formula root command for scaffolding complete flow.';
-
+    protected $signature    = 'api-make:formula';
+    protected $description  = 'API Formula root command for scaffolding complete flow.';
 
     /**
      * Create a new command instance.

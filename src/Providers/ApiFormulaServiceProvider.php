@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 // Commands.
 use KLisica\ApiFormula\Commands\SetupFormula;
 use KLisica\ApiFormula\Commands\CreateFormula;
+use KLisica\ApiFormula\Commands\CreateMigration;
 use KLisica\ApiFormula\Commands\CreateModel;
 use KLisica\ApiFormula\Commands\CreateRepository;
 use KLisica\ApiFormula\Commands\CreateRepositoryInterface;
@@ -27,6 +28,7 @@ class ApiFormulaServiceProvider extends ServiceProvider
 
             // Sub-commands.
             CreateModel::class,
+            CreateMigration::class,
             CreateRepositoryInterface::class,
             CreateRepository::class,
         ]);
