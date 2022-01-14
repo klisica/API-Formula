@@ -24,20 +24,35 @@ class {{ class }} extends Controller
         $this->{{ model_lc }}Service = ${{ model_lc }}Service;
     }
 
-    // Get all records.
+    /**
+     * Get list of records - paginated.
+     *
+     * @param   Request $request
+     * @return  {{ model }}Resource
+     */
     public function index(Request $request)
     {
         $list = $this->{{ model_lc }}Repository->all($request);
         return {{ model }}Resource::collection($list);
     }
 
-    // Get single record
+    /**
+     * Get one record.
+     *
+     * @param   {{ model }} ${{ model_var }}
+     * @return  {{ model }}Resource
+     */
     public function show({{ model }} ${{ model_var }})
     {
         return new {{ model }}Resource(${{ model_var }});
     }
 
-    // Store record.
+    /**
+     * Create a new record.
+     *
+     * @param   Create{{ model }} $request
+     * @return  {{ model }}Resource
+     */
     public function store(Create{{ model }} $request)
     {
         $data = $this->{{ model_lc }}Service->getRequestData($request);
@@ -45,7 +60,13 @@ class {{ class }} extends Controller
         return new {{ model }}Resource($record);
     }
 
-    // Update record.
+    /**
+     * Update record.
+     *
+     * @param   Update{{ model }} $request
+     * @param   {{ model }} ${{ model_var }}
+     * @return  {{ model }}Resource
+     */
     public function update(Update{{ model }} $request, {{ model }} ${{ model_var }})
     {
         $data = $this->{{ model_lc }}Service->getRequestData($request);
@@ -53,7 +74,12 @@ class {{ class }} extends Controller
         return new {{ model }}Resource($record);
     }
 
-    // Destroy record.
+    /**
+     * Delete record.
+     *
+     * @param   {{ model }} ${{ model_var }}
+     * @return  string
+     */
     public function destroy({{ model }} ${{ model_var }})
     {
         $this->{{ model_lc }}Repository->delete(${{ model_var }});

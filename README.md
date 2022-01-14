@@ -2,11 +2,13 @@
 
 ### Laravel API architecture builder based on artisan commands.
 
+This package provides a nice and fluent way to generate combined **controllers**, **models**, **migrations**, **requests**, **resources**, **repositories** and **services**, thus keeping the code well structured and organized.
+
 <br />
 
 ## Installation
 
-Install library with composer, execute the setup command and register the `RepositoryServiceProvider.php` file in `config > app.php` under the `providers` array.
+Install the package with composer, execute the setup command and register the `RepositoryServiceProvider.php` file in `config > app.php` under the `providers` array.
 
 ``` shell
 composer require klisica/api-formula
@@ -34,7 +36,8 @@ php artisan api-formula:setup
 php artisan api-make:formula
 ```
 
-In this shell we'll run multiple commands under the hood, in order to create the API structure. All these commands are generating specified set of files like **Models**, **Repositories**, **Controllers** and **Migrations**.
+<br />
+
 
 To manually create specific file you can use one of these commands:
 
@@ -42,4 +45,13 @@ To manually create specific file you can use one of these commands:
 php artisan api-make:model ModelName
 php artisan api-make:migration create_example_table
 php artisan api-make:repository RepositoryName --model=ModelName
+php artisan api-make:service ServiceName
+php artisan api-make:request RequestName
+php artisan api-make:controller ControllerName --model=ModelName
 ```
+<br />
+
+Other external packages used with this package:
+
+-  [Laravel Eloquent UUID](https://github.com/goldspecdigital/laravel-eloquent-uuid)
+-  [Laracasts Generators](https://packagist.org/packages/laracasts/generators)
