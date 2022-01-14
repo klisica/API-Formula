@@ -69,6 +69,45 @@ class CreateFormula extends Command
         }
 
         // Go through each build manually.
+        $answers = ['Yes', 'No'];
+
+        $resourceChoice = $this->choice('Create a resource for this model?', $answers, 0);
+        $serviceChoice = $this->choice('Create a service for this model?', $answers, 0);
+        $requestsChoice = $this->choice('Create requests for this model?', $answers, 0);
+        $repositoryChoice = $this->choice('Create a repository for this model?', $answers, 0);
+        $controllerChoice = $this->choice('Create a controller for this model?', $answers, 0);
+
+        if ($resourceChoice == $answers[0]) {
+            // Create model resource.
+            $this->call('make:resource', ['name' => $modelName . 'Resource']);
+        }
+
+        if ($serviceChoice == $answers[0]) {
+            // Create model service.
+            $this->call('api-make:service', ['name' => $modelName . 'Service']);
+        }
+
+        if ($requestsChoice == $answers[0]) {
+            // Create requests for create and update methods.
+            $this->call('api-make:request', ['name' => $modelName . '/Create' . $modelName]);
+            $this->call('api-make:request', ['name' => $modelName . '/Update' . $modelName]);
+        }
+
+        if ($repositoryChoice == $answers[0]) {
+            // Create repository and related interface.
+            $this->call('api-make:repository', [
+                'name' => $modelName . 'Repository',
+                '--model' => $modelName
+            ]);
+        }
+
+        if ($controllerChoice == $answers[0]) {
+            // Create controller.
+            $this->call('api-make:controller', [
+                'name' => $modelName . 'Controller',
+                '--model' => $modelName
+            ]);
+        }
 
         $this->info('🤘  All done!');
         return Command::SUCCESS;
