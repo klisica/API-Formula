@@ -26,24 +26,60 @@ class CreateFormula extends Command
      */
     public function handle()
     {
-        $this->info("📝 Setting up recipe for API-Formula:");
+        $this->info("📝 Setting up recipe for API-Formula...");
 
         $modelChoices = ['Create new', 'Use existing'];
         $modelChoice = $this->choice(
             'Create new model or use existing?',
-            ['Create new', 'Use existing'],
+            $modelChoices,
             0
         );
 
         if ($modelChoices[0] == $modelChoice) {
+            $migrationChoices = ['Yes', 'No'];
+            $migrationChoice = $this->choice(
+                'Create migration for this model?',
+                $migrationChoices,
+                0
+            );
+
             // Create new model.
             $modelName = $this->ask('Write new model name:');
-            $this->call('api-make:model', ['name' => $modelName, '--migration' => true]);
+            $this->call('api-make:model', [
+                'name' => $modelName,
+                '--migration' => $migrationChoice == $migrationChoices[0]
+            ]);
         } else {
             // Use existing model.
             $modelName = $this->ask('Write existing model name:');
         }
 
+        $buildChoices = ["Yes", "No, I'll do it manually"];
+        $buildChoice = $this->choice(
+            'Create the complete API architecture automatically?',
+            $buildChoices,
+            0
+        );
+
+        // Ru automatic builds.
+        if ($buildChoice == $buildChoices[0]) {
+            $this->buildArchitecture($modelName);
+            $this->info('🤘  All done!');
+            return Command::SUCCESS;
+        }
+
+        // Go through each build manually.
+
+        $this->info('🤘  All done!');
+        return Command::SUCCESS;
+    }
+
+    /**
+     * Build the complete architecture automatically.
+     *
+     */
+    public function buildArchitecture(string $modelName)
+    {
         // Create model resource.
         $this->call('make:resource', ['name' => $modelName . 'Resource']);
 
@@ -65,7 +101,5 @@ class CreateFormula extends Command
             'name' => $modelName . 'Controller',
             '--model' => $modelName
         ]);
-
-        return 0;
     }
 }
