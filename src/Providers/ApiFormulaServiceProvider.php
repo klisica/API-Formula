@@ -3,7 +3,7 @@
 namespace KLisica\ApiFormula\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use KLisica\ApiFormula\Commands\CreateController;
 // Commands.
 use KLisica\ApiFormula\Commands\SetupFormula;
 use KLisica\ApiFormula\Commands\CreateFormula;
@@ -35,6 +35,7 @@ class ApiFormulaServiceProvider extends ServiceProvider
             CreateRepository::class,
             CreateService::class,
             CreateRequest::class,
+            CreateController::class,
         ]);
     }
 }

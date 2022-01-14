@@ -1,0 +1,62 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Request;
+use App\Repositories\Interfaces\{{ model }}RepositoryInterface;
+use App\Http\Resources\{{ model }}Resource;
+use App\Http\Services\{{ model }}Service;
+use App\Http\Requests\{{ model }}\Create{{ model }};
+use App\Http\Requests\{{ model }}\Update{{ model }};
+use {{ namespacedModel }};
+
+class {{ class }} extends Controller
+{
+    private ${{ model_lc }}Repository;
+    private ${{ model_lc }}Service;
+
+    public function __construct(
+        {{ model }}RepositoryInterface ${{ model_lc }}Repository,
+        {{ model }}Service ${{ model_lc }}Service
+    )
+    {
+        $this->{{ model_lc }}Repository = ${{ model_lc }}Repository;
+        $this->{{ model_lc }}Service = ${{ model_lc }}Service;
+    }
+
+    // Get all records.
+    public function index(Request $request)
+    {
+        $list = $this->{{ model_lc }}Repository->all($request);
+        return {{ model }}Resource::collection($list);
+    }
+
+    // Get single record
+    public function show({{ model }} ${{ model_var }})
+    {
+        return new {{ model }}Resource(${{ model_var }});
+    }
+
+    // Store record.
+    public function store(Create{{ model }} $request)
+    {
+        $data = $this->{{ model_lc }}Service->getRequestData($request);
+        $record = $this->{{ model_lc }}Repository->create($data);
+        return new {{ model }}Resource($record);
+    }
+
+    // Update record.
+    public function update(Update{{ model }} $request, {{ model }} ${{ model_var }})
+    {
+        $data = $this->{{ model_lc }}Service->getRequestData($request);
+        $record = $this->{{ model_lc }}Repository->update($data, ${{ model_var }});
+        return new {{ model }}Resource($record);
+    }
+
+    // Destroy record.
+    public function destroy({{ model }} ${{ model_var }})
+    {
+        $this->{{ model_lc }}Repository->delete(${{ model_var }});
+        return response()->json('Success!', 200);
+    }
+}

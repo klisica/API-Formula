@@ -57,8 +57,12 @@ class GeneratorCommand extends OriginalGeneratorCommand
         // By default we aren't passing any additional params.
         $replace = [];
 
-        if ($this->type == 'Repository' || $this->type == 'RepositoryInterface') {
-            $replace = (new BuildReplacements)->repository($this->_MODEL_NAME);
+        if (
+            $this->type == 'Repository' ||
+            $this->type == 'RepositoryInterface'||
+            $this->type == 'Controller'
+        ) {
+            $replace = (new BuildReplacements)->replaceStrings($this->_MODEL_NAME);
         }
 
         return str_replace(

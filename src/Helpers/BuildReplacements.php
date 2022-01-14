@@ -6,16 +6,18 @@ use Illuminate\Support\Str;
 class BuildReplacements
 {
     /**
-     * Stub build replacements for Repository file.
+     * Stub build replacements.
      *
-     * @return array
+     * @param   string $model_name
+     * @return  array
      */
-    public function repository(string $model_name)
+    public function replaceStrings(string $model_name): array
     {
         return [
             '{{ namespacedModel }}' => "App\\Models\\$model_name",
             '{{ model }}' => $model_name,
-            '{{ model_var }}' => Str::snake($model_name)
+            '{{ model_var }}' => Str::snake($model_name),
+            '{{ model_lc }}' => lcfirst($model_name)
         ];
     }
 }

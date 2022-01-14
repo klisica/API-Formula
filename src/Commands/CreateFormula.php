@@ -60,6 +60,12 @@ class CreateFormula extends Command
             '--model' => $modelName
         ]);
 
+        // Create controller.
+        $this->call('api-make:controller', [
+            'name' => $modelName . 'Controller',
+            '--model' => $modelName
+        ]);
+
         return 0;
     }
 }
