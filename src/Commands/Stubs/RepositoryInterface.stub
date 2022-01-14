@@ -4,13 +4,40 @@ namespace {{ namespace }};
 
 use {{ namespacedModel }};
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface {{ class }}
 {
     /**
      * Get list of records - paginated.
      *
+     * @param   Request $request
      * @return  LengthAwarePaginator
      */
-    public function all(Request $request);
+    public function all(Request $request): LengthAwarePaginator;
+
+    /**
+     * Create new record.
+     *
+     * @param   array $data
+     * @return  {{ model }} ${{ model_var }}
+     */
+    public function create(array $data): {{ model }};
+
+    /**
+     * Update record.
+     *
+     * @param   array $data
+     * @param   {{ model }} ${{ model_var }}
+     * @return  {{ model }} ${{ model_var }}
+     */
+    public function update(array $data, {{ model }} ${{ model_var }}): {{ model }};
+
+    /**
+     * Delete record.
+     *
+     * @param   {{ model }} ${{ model_var }}
+     * @return  void
+     */
+    public function delete({{ model }} ${{ model_var }}): void;
 }

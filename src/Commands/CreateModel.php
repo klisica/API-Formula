@@ -34,7 +34,7 @@ class CreateModel extends GeneratorCommand
 
         if ($this->option('migration')) {
             // Create the migration.
-            $migration = 'create_' . Str::snake($this->_FILE_NAME) . '_table';
+            $migration = 'create_' . Str::snake(Str::plural($this->_FILE_NAME)) . '_table';
             $this->call("api-make:migration", ['name' => $migration]);
         }
 

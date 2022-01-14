@@ -5,17 +5,61 @@ namespace {{ namespace }};
 use {{ namespacedModel }};
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use {{ namespace }}\Interfaces\{{ class }}Interface;
 
-class {{ class }}
+class {{ class }} implements {{ class }}Interface
 {
     /**
      * Get list of records - paginated.
      *
+     * @param   Request $request
      * @return  LengthAwarePaginator
      */
     public function all(Request $request): LengthAwarePaginator
     {
         $perPage = $request->per_page ?? 20;
         return {{ model }}::paginate((int) $perPage);
+    }
+
+    /**
+     * Create a new record.
+     *
+     * @param   array $data
+     * @return  {{ model }} ${{ model_var }}
+     */
+    public function create(array $data): {{ model }}
+    {
+        ${{ model_var }} = new {{ model }}();
+        // ...
+        ${{ model_var }}->save();
+
+        return ${{ model_var }};
+    }
+
+    /**
+     * Update record.
+     *
+     * @param   array $data
+     * @param   {{ model }} ${{ model_var }}
+     * @return  {{ model }} ${{ model_var }}
+     */
+    public function update(array $data, {{ model }} ${{ model_var }}): {{ model }}
+    {
+        // ...
+        ${{ model_var }}->save();
+
+        return ${{ model_var }};
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param   {{ model }} ${{ model_var }}
+     * @return  void
+     */
+    public function delete({{ model }} ${{ model_var }}): void
+    {
+        ${{ model_var }}->delete();
+        return;
     }
 }

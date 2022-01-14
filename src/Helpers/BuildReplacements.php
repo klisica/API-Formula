@@ -1,6 +1,7 @@
 <?php
 
 namespace KLisica\ApiFormula\Helpers;
+use Illuminate\Support\Str;
 
 class BuildReplacements
 {
@@ -13,7 +14,8 @@ class BuildReplacements
     {
         return [
             '{{ namespacedModel }}' => "App\\Models\\$model_name",
-            '{{ model }}' => $model_name
+            '{{ model }}' => $model_name,
+            '{{ model_var }}' => Str::snake($model_name)
         ];
     }
 }
