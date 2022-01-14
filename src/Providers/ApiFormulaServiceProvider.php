@@ -11,6 +11,7 @@ use KLisica\ApiFormula\Commands\CreateMigration;
 use KLisica\ApiFormula\Commands\CreateModel;
 use KLisica\ApiFormula\Commands\CreateRepository;
 use KLisica\ApiFormula\Commands\CreateRepositoryInterface;
+use KLisica\ApiFormula\Commands\CreateService;
 
 class ApiFormulaServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,7 @@ class ApiFormulaServiceProvider extends ServiceProvider
             CreateMigration::class,
             CreateRepositoryInterface::class,
             CreateRepository::class,
+            CreateService::class,
         ]);
     }
 }

@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Request;
+
+class {{ class }}
+{
+    /**
+     * Get specific data from request.
+     *
+     * @param   Request $request
+     * @return  array
+     */
+    public function getRequestData(Request $request): array
+    {
+        return $request->all();
+    }
+}
