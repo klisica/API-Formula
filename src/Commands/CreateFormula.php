@@ -44,6 +44,16 @@ class CreateFormula extends Command
             $modelName = $this->ask('Write existing model name:');
         }
 
+        // Create model resource.
+        $this->call('make:resource', ['name' => $modelName . 'Resource']);
+
+        // Create model service.
+        $this->call('api-make:service', ['name' => $modelName . 'Service']);
+
+        // Create requests for create and update methods.
+        $this->call('api-make:request', ['name' => $modelName . '/Create' . $modelName]);
+        $this->call('api-make:request', ['name' => $modelName . '/Update' . $modelName]);
+
         // Create repository and related interface.
         $this->call('api-make:repository', [
             'name' => $modelName . 'Repository',
