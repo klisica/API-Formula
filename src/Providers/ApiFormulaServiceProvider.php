@@ -18,11 +18,23 @@ class ApiFormulaServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            // Publish the configuration file.
+            $this->publishes([
+                dirname(__DIR__, 2) . '/config/config.php'
+                    => config_path('api-formula.php'),
+            ]);
+          }
     }
 
     public function register()
     {
+        // Registering configuration file.
+        $this->mergeConfigFrom(
+            dirname(__DIR__, 2) . '/config/config.php',
+            'api-formula'
+        );
+
         // Registering commands.
         $this->commands([
             SetupFormula::class,

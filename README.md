@@ -37,6 +37,12 @@ Route::midleware('auth:sanctum')->group(function () {
 });
 ```
 
+To publish the config file run:
+
+``` shell
+php artisan vendor:publish --provider="KLisica\ApiFormula\Providers\ApiFormulaServiceProvider"
+```
+
 
 <br />
 
