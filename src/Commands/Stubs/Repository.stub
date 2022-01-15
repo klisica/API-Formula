@@ -18,7 +18,10 @@ class {{ class }} implements {{ class }}Interface
     public function all(Request $request): LengthAwarePaginator
     {
         $perPage = $request->per_page ?? 20;
-        return {{ model }}::paginate((int) $perPage);
+
+        return {{ model }}::filter($request)
+            ->tableSort($request)
+            ->paginate((int) $perPage);
     }
 
     /**
