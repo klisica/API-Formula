@@ -4,6 +4,7 @@ namespace KLisica\ApiFormula\Commands;
 
 use Illuminate\Console\Command;
 use KLisica\ApiFormula\Extended\GeneratorCommand;
+use KLisica\ApiFormula\Helpers\FileManager;
 
 class CreateController extends GeneratorCommand
 {
@@ -38,6 +39,9 @@ class CreateController extends GeneratorCommand
         }
 
         $sts = $this->_startFileBuilder();
+
+        (new FileManager)->importApiRoute($this->_FILE_NAME, $this->_MODEL_NAME);
+
         return $sts ? Command::SUCCESS : Command::FAILURE;
     }
 }
