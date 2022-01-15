@@ -76,6 +76,8 @@ class CreateFormula extends Command
         $requestsChoice = $this->choice('Create requests for this model?', $answers, 0);
         $repositoryChoice = $this->choice('Create a repository for this model?', $answers, 0);
         $controllerChoice = $this->choice('Create a controller for this model?', $answers, 0);
+        $factoryChoice = $this->choice('Create a factory for this model?', $answers, 0);
+        $testChoice = $this->choice('Create a test for this model?', $answers, 0);
 
         if ($resourceChoice == $answers[0]) {
             // Create model resource.
@@ -109,6 +111,14 @@ class CreateFormula extends Command
             ]);
         }
 
+        if ($factoryChoice == $answers[0]) {
+            $this->call('make:factory', ['name' => $modelName . 'Factory']);
+        }
+
+        if ($testChoice == $answers[0]) {
+            $this->call('make:test', ['name' => $modelName . 'Test']);
+        }
+
         $this->info('🤘  All done!');
         return Command::SUCCESS;
     }
@@ -120,25 +130,40 @@ class CreateFormula extends Command
     public function buildArchitecture(string $modelName)
     {
         // Create model resource.
-        $this->call('make:resource', ['name' => $modelName . 'Resource']);
+        if (config('api-formula.create_resource')) {
+            $this->call('make:resource', ['name' => $modelName . 'Resource']);
+        }
 
         // Create model service.
-        $this->call('api-make:service', ['name' => $modelName . 'Service']);
+        if (config('api-formula.create_service')) {
+            $this->call('api-make:service', ['name' => $modelName . 'Service']);
+        }
 
         // Create requests for create and update methods.
-        $this->call('api-make:request', ['name' => $modelName . '/Create' . $modelName]);
-        $this->call('api-make:request', ['name' => $modelName . '/Update' . $modelName]);
+        if (config('api-formula.create_requests')) {
+            $this->call('api-make:request', ['name' => $modelName . '/Create' . $modelName]);
+            $this->call('api-make:request', ['name' => $modelName . '/Update' . $modelName]);
+        }
 
         // Create repository and related interface.
-        $this->call('api-make:repository', [
-            'name' => $modelName . 'Repository',
-            '--model' => $modelName
-        ]);
+        if (config('api-formula.create_repository')) {
+            $this->call('api-make:repository', [
+                'name' => $modelName . 'Repository',
+                '--model' => $modelName
+            ]);
+        }
 
         // Create controller.
-        $this->call('api-make:controller', [
-            'name' => $modelName . 'Controller',
-            '--model' => $modelName
-        ]);
+        if (config('api-formula.create_controller')) {
+            $this->call('api-make:controller', [
+                'name' => $modelName . 'Controller',
+                '--model' => $modelName
+            ]);
+        }
+
+        if (config('api-formula.create_test')) {
+            $this->call('make:factory', ['name' => $modelName . 'Factory']);
+            $this->call('make:test', ['name' => $modelName . 'Test']);
+        }
     }
 }
