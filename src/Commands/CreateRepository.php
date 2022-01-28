@@ -19,7 +19,13 @@ class CreateRepository extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return "$rootNamespace\\Repositories";
+        $versioning_enabled
+            = (bool) config('api._version') &&
+            !in_array('repositories', config('api-formula.versioning_disabled_for'));
+
+        return $versioning_enabled
+            ? "$rootNamespace\\Repositories\\" . config('api._version')
+            : "$rootNamespace\\Repositories";
     }
 
     /**

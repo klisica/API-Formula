@@ -3,6 +3,7 @@
 namespace {{ namespace }};
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\{{ model }}RepositoryInterface;
 use App\Http\Resources\{{ model }}Resource;
 use App\Http\Services\{{ model }}Service;

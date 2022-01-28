@@ -7,5 +7,20 @@ return [
     'create_requests' => true,
     'create_repository' => true,
     'create_controller' => true,
-    'create_test' => true
+    'create_test' => true,
+
+    // API versioning.
+    'version' => 'v1',
+
+    /**
+     * List of instances that should ignore versioning. Available:
+     *
+     *  - controllers
+     *  - models
+     *  - repositories
+     *  - requests
+     *  - services
+     *
+     */
+    'versioning_disabled_for' => ['models']
 ];

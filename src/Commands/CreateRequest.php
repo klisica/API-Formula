@@ -18,7 +18,13 @@ class CreateRequest extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return "$rootNamespace\\Http\\Requests";
+        $versioning_enabled
+            = (bool) config('api._version') &&
+            !in_array('requests', config('api-formula.versioning_disabled_for'));
+
+        return $versioning_enabled
+            ? "$rootNamespace\\Requests\\" . config('api._version')
+            : "$rootNamespace\\Requests";
     }
 
     /**
