@@ -81,7 +81,16 @@ class CreateFormula extends Command
 
         if ($resourceChoice == $answers[0]) {
             // Create model resource.
-            $this->call('make:resource', ['name' => $modelName . 'Resource']);
+            $resourceName = $modelName;
+
+            if (
+                (bool) config('api._version') &&
+                !in_array('resources', config('api-formula.versioning_disabled_for'))
+            ) {
+                $resourceName = config('api._version') . "/$modelName";
+            }
+
+            $this->call('make:resource', ['name' => $resourceName . 'Resource']);
         }
 
         if ($serviceChoice == $answers[0]) {
@@ -131,7 +140,16 @@ class CreateFormula extends Command
     {
         // Create model resource.
         if (config('api-formula.create_resource')) {
-            $this->call('make:resource', ['name' => $modelName . 'Resource']);
+            $resourceName = $modelName;
+
+            if (
+                (bool) config('api._version') &&
+                !in_array('resources', config('api-formula.versioning_disabled_for'))
+            ) {
+                $resourceName = config('api._version') . "/$modelName";
+            }
+
+            $this->call('make:resource', ['name' => $resourceName . 'Resource']);
         }
 
         // Create model service.

@@ -23,8 +23,8 @@ class CreateRequest extends GeneratorCommand
             !in_array('requests', config('api-formula.versioning_disabled_for'));
 
         return $versioning_enabled
-            ? "$rootNamespace\\Requests\\" . config('api._version')
-            : "$rootNamespace\\Requests";
+            ? "$rootNamespace\\Http\\Requests\\" . config('api._version')
+            : "$rootNamespace\\Http\\Requests";
     }
 
     /**

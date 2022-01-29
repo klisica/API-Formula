@@ -18,6 +18,7 @@ return [
      *  - controllers
      *  - models
      *  - repositories
+     *  - resources
      *  - requests
      *  - services
      *

@@ -23,8 +23,8 @@ class CreateService extends GeneratorCommand
             !in_array('services', config('api-formula.versioning_disabled_for'));
 
         return $versioning_enabled
-            ? "$rootNamespace\\Services\\" . config('api._version')
-            : "$rootNamespace\\Services";
+            ? "$rootNamespace\\Http\\Services\\" . config('api._version')
+            : "$rootNamespace\\Http\\Services";
     }
 
     /**
