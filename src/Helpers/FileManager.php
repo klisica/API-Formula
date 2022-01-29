@@ -65,7 +65,8 @@ class FileManager
     public function importApiRoute(string $controller, string $model)
     {
         $comment = '// @API_FORMULA_AUTOIMPORT';
-        $file = base_path() . '/routes/api.php';
+        $fileName = config('api-formula.api_file_path') ?? '/routes/api.php';
+        $file = base_path() . $fileName;
 
         // Import function.
         $snippet

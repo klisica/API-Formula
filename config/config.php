@@ -23,5 +23,8 @@ return [
      *  - services
      *
      */
-    'versioning_disabled_for' => ['models']
+    'versioning_disabled_for' => ['models'],
+
+    // The api route file path to autoimport resource routes.
+    'api_file_path' => '/routes/api.php'
 ];
