@@ -2,8 +2,8 @@
 
 namespace KLisica\ApiFormula\Commands;
 
-use Illuminate\Console\Command;
 use KLisica\ApiFormula\Extended\GeneratorCommand;
+use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
 class CreateModel extends GeneratorCommand
@@ -19,7 +19,13 @@ class CreateModel extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return "$rootNamespace\\Models";
+        $versioning_enabled
+            = (bool) config('api._version') &&
+            !in_array('models', config('api-formula.versioning_disabled_for'));
+
+        return $versioning_enabled
+            ? "$rootNamespace\\Models\\" . config('api._version')
+            : "$rootNamespace\\Models";
     }
 
     /**

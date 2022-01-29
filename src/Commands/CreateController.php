@@ -19,7 +19,13 @@ class CreateController extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return "$rootNamespace\\Http\\Controllers";
+        $versioning_enabled
+            = (bool) config('api._version') &&
+            !in_array('controllers', config('api-formula.versioning_disabled_for'));
+
+        return $versioning_enabled
+            ? "$rootNamespace\\Http\\Controllers\\" . config('api._version')
+            : "$rootNamespace\\Http\\Controllers";
     }
 
     /**

@@ -11,19 +11,31 @@ class FileManager
      *
      * @param string $repository
      * @param string $comment
+     * @param string $comment
+     * @return void
      */
-    public function importRepositoryFiles(string $repository, string $comment)
+    public function importRepositoryFiles(string $repository, string $comment): void
     {
         $file = base_path() . '/app/Providers/RepositoryServiceProvider.php';
+        $api_version = config('api._version');
 
         // Use statements.
         if ($comment == '// @API_FORMULA_USE_AUTOIMPORT') {
             $interface = $repository . 'Interface';
 
-            $snippet
-                = "use App\\Repositories\\Interfaces\\$interface;\n"
-                . "use App\\Repositories\\$repository;\n"
+            if ($api_version) {
+                // Set versioned snippet.
+                $snippet
+                = "use App\\Repositories\\$api_version\\Interfaces\\$interface;\n"
+                . "use App\\Repositories\\$api_version\\$repository;\n"
                 . "// @API_FORMULA_USE_AUTOIMPORT";
+            } else {
+                // Set regular snippet.
+                $snippet
+                    = "use App\\Repositories\\Interfaces\\$interface;\n"
+                    . "use App\\Repositories\\$repository;\n"
+                    . "// @API_FORMULA_USE_AUTOIMPORT";
+            }
         }
 
         // Bind function.
@@ -53,7 +65,8 @@ class FileManager
     public function importApiRoute(string $controller, string $model)
     {
         $comment = '// @API_FORMULA_AUTOIMPORT';
-        $file = base_path() . '/routes/api.php';
+        $fileName = config('api-formula.api_file_path') ?? '/routes/api.php';
+        $file = base_path() . $fileName;
 
         // Import function.
         $snippet

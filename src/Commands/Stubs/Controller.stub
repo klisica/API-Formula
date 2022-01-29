@@ -3,11 +3,12 @@
 namespace {{ namespace }};
 
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\{{ model }}RepositoryInterface;
-use App\Http\Resources\{{ model }}Resource;
-use App\Http\Services\{{ model }}Service;
-use App\Http\Requests\{{ model }}\Create{{ model }};
-use App\Http\Requests\{{ model }}\Update{{ model }};
+use App\Http\Controllers\Controller;
+use {{ repository_path }};
+use {{ resource_path }};
+use {{ service_path }};
+use {{ create_request_path }};
+use {{ update_request_path }};
 use {{ namespacedModel }};
 
 class {{ class }} extends Controller
